@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     return Response.json(
       {
         error:
-          "Examine isn't connected to its study engine yet. Add ANTHROPIC_API_KEY in the Vercel project settings to switch it on.",
+          "LovingBible isn't connected to its study engine yet. Add ANTHROPIC_API_KEY in the Vercel project settings to switch it on.",
       },
       { status: 503 },
     );
@@ -69,7 +69,7 @@ export async function POST(request: Request) {
     const client = new Anthropic({ apiKey });
     const msg = await client.messages.create({
       model: MODEL,
-      max_tokens: 3500,
+      max_tokens: 2400,
       temperature: 0.3,
       system: SYSTEM_PROMPT,
       tools: [EXAMINE_TOOL],
@@ -80,7 +80,7 @@ export async function POST(request: Request) {
     const toolUse = msg.content.find((b) => b.type === "tool_use");
     if (!toolUse || toolUse.type !== "tool_use") {
       return Response.json(
-        { error: "Examine couldn't form a response. Please try rephrasing." },
+        { error: "LovingBible couldn't form a response. Please try rephrasing." },
         { status: 502 },
       );
     }

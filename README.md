@@ -1,17 +1,17 @@
-# Examine
+# LovingBible
 
 > Search the Scriptures for yourself.
 
-**Examine** is a Bible study companion. Type a belief or question and it shows you what the Bible
+**LovingBible** is a Bible study companion. Type a belief or question and it shows you what the Bible
 actually says — in English, Greek, and Hebrew — **without handing you a verdict**. It lays out the
 relevant passages (real verse text, in context), the original-language nuance, and where faithful
 Christians differ, then leaves the conviction to you (Acts 17:11; Romans 14:5).
 
-🌐 Live: **https://examine-bible.vercel.app**
+🌐 Live: **https://lovingbible.com**
 
 ## The conscience of the product (non-negotiable)
 
-1. **No verdicts.** Examine never tells a user they are "right" or "wrong." It is a faithful
+1. **No verdicts.** LovingBible never tells a user they are "right" or "wrong." It is a faithful
    librarian, not a judge.
 2. **Real Scripture, never invented.** Verse *text* is fetched from a real Bible source — the model
    only ever proposes references; it never quotes from memory.

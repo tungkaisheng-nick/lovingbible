@@ -1,37 +1,54 @@
 @import "tailwindcss";
 
 /* ============================================================
-   Examine — design tokens
-   Dark "candlelight" base + one confident gold accent.
-   (Track B taste: restraint + one saturated accent on a calm base.)
+   LovingBible — design system
+   "Sunrise": warm cream base + one hopeful coral accent +
+   deep warm darks. Heavy ALL-CAPS display (Archivo Black,
+   the Kallang punch) + calm Manrope body.
    ============================================================ */
 :root {
-  --ink: #0c0a09;        /* warm near-black base (never pure #000) */
-  --ink-2: #14110f;      /* raised panel */
-  --surface: #1a1613;    /* cards */
-  --line: rgba(245, 241, 232, 0.09);
-  --line-strong: rgba(245, 241, 232, 0.16);
-  --cream: #f5f1e8;      /* primary text (warm white) */
-  --muted: #a59c90;      /* secondary text */
-  --gold: #c9a84c;       /* the one accent — lamp / Scripture */
-  --gold-soft: #e3cd86;
-  --gold-deep: #8a6d2a;
+  /* warm light surfaces */
+  --paper: #faf6f0;       /* warm cream */
+  --paper-2: #f2eadf;     /* deeper warm sand (alt sections) */
+  --card: #fffdfa;        /* warm white card */
+  --ink: #211a16;         /* warm espresso near-black */
+  --muted: #6f6258;       /* warm taupe */
+  --line: rgba(33, 26, 22, 0.10);
+  --line-strong: rgba(33, 26, 22, 0.16);
+
+  /* the one accent — sunrise coral */
+  --accent: #e2603f;
+  --accent-deep: #c2492b;
+  --accent-soft: #fbe5dc;
+
+  /* deep warm dark band */
+  --band: #1c1310;
+  --band-2: #2a1d17;
+  --band-ink: #f7f0e9;
+  --band-muted: #b6a597;
+  --band-line: rgba(255, 255, 255, 0.12);
 }
 
 @theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-card: var(--card);
   --color-ink: var(--ink);
-  --color-ink-2: var(--ink-2);
-  --color-surface: var(--surface);
+  --color-muted: var(--muted);
   --color-line: var(--line);
   --color-line-strong: var(--line-strong);
-  --color-cream: var(--cream);
-  --color-muted: var(--muted);
-  --color-gold: var(--gold);
-  --color-gold-soft: var(--gold-soft);
-  --color-gold-deep: var(--gold-deep);
 
-  --font-display: var(--font-fraunces);
-  --font-sans: var(--font-jakarta);
+  --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+  --color-accent-soft: var(--accent-soft);
+
+  --color-band: var(--band);
+  --color-band-2: var(--band-2);
+  --color-band-ink: var(--band-ink);
+  --color-band-muted: var(--band-muted);
+  --color-band-line: var(--band-line);
+
+  --font-sans: var(--font-body);
 }
 
 html {
@@ -39,49 +56,70 @@ html {
 }
 
 body {
-  background-color: var(--ink);
-  color: var(--cream);
-  font-family: var(--font-jakarta), system-ui, sans-serif;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-/* Candlelight glow behind the hero */
-.glow {
-  background:
-    radial-gradient(60% 50% at 50% 0%, rgba(201, 168, 76, 0.16) 0%, rgba(201, 168, 76, 0) 70%),
-    radial-gradient(40% 30% at 80% 10%, rgba(201, 168, 76, 0.07) 0%, rgba(201, 168, 76, 0) 70%);
+/* Heavy display headline — the Kallang "punch" (uppercase utility on big ones) */
+.display {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.0;
 }
 
-/* Left accent bar (from the cinematic reference) */
+/* Small section eyebrow label */
+.label {
+  font-family: var(--font-body), system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  font-size: 0.72rem;
+}
+
+/* Deep warm cinematic band */
+.band {
+  background-color: var(--band);
+  color: var(--band-ink);
+}
+
+/* Sunrise glow for the dark hero */
+.glow {
+  background:
+    radial-gradient(55% 55% at 50% 0%, rgba(226, 96, 63, 0.34) 0%, rgba(226, 96, 63, 0) 70%),
+    radial-gradient(45% 40% at 80% 14%, rgba(240, 170, 90, 0.20) 0%, rgba(240, 170, 90, 0) 70%),
+    var(--band);
+}
+
+/* Left accent bar */
 .accent-bar {
-  border-left: 2px solid var(--gold);
+  border-left: 3px solid var(--accent);
   padding-left: 1.25rem;
 }
 
-.display {
-  font-family: var(--font-fraunces), Georgia, serif;
-  font-optical-sizing: auto;
-  letter-spacing: -0.02em;
-  line-height: 0.98;
+.card {
+  background-color: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px rgba(33, 26, 22, 0.04), 0 8px 24px rgba(33, 26, 22, 0.06);
 }
 
-.fade-up {
-  animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Thin gold scrollbar accents on the result column */
 .scripture-quote {
-  font-family: var(--font-fraunces), Georgia, serif;
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   line-height: 1.6;
 }
 
+.fade-up {
+  animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 ::selection {
-  background: rgba(201, 168, 76, 0.25);
-  color: var(--cream);
+  background: rgba(226, 96, 63, 0.24);
 }

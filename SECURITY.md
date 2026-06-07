@@ -1,13 +1,13 @@
-# SECURITY.md — Examine
+# SECURITY.md — LovingBible
 
-Security posture for **Examine** (Bible study companion). Mapped to OWASP Top 10, OWASP Top 10 for LLM Apps, CSA Cyber Essentials, ISO 27001, and PDPA. This is the living security record for the project — keep the Evidence Log current.
+Security posture for **LovingBible** (Bible study companion). Mapped to OWASP Top 10, OWASP Top 10 for LLM Apps, CSA Cyber Essentials, ISO 27001, and PDPA. This is the living security record for the project — keep the Evidence Log current.
 
 ## 1. What this app is
 A Next.js web app. A user types a belief/question; the server calls the Anthropic API (Claude) with a strict, no-verdict system prompt to produce a structured examination; the server then fetches **real** verse text from a public Bible API so nothing shown is quoted from the model's memory. No accounts, no database, no personal data stored.
 
 ## 2. Secrets
 - `ANTHROPIC_API_KEY` is **server-only** (read in `app/api/examine/route.ts`, never exposed to the client). Set it in Vercel → Settings → Environment Variables. Never commit it; `.env*` is gitignored.
-- No other secrets at present.
+- `YOUVERSION_API_KEY` is **server-only** (read in `lib/bible.ts` → `fetchFromYouVersion()`). Set in Vercel env vars. Never commit. Used to authenticate verse-text fetches from the YouVersion Platform API (WEB, version_id 206). Falls back to unauthenticated `bible-api.com` if absent or if YouVersion returns a non-2xx.
 
 ## 3. Trust boundaries & GenAI/LLM controls (OWASP LLM)
 - **Prompt injection (LLM01):** user input is passed only as the message; the system prompt is fixed and instructs Rule #1 (no verdicts) and anti-proof-texting. The model's output is constrained to a **tool schema** (structured JSON), not free prose, which limits injection blast radius.
@@ -43,3 +43,4 @@ A Next.js web app. A user types a belief/question; the server calls the Anthropi
 | Date | Check | Result | Notes |
 |------|-------|--------|-------|
 | 2026-06-07 | Initial scaffold | n/a | Security headers, input validation, secret hygiene, LLM controls in place from day one. MVP — gaps in §5 tracked. |
+| 2026-06-07 | YouVersion API key added | n/a | YOUVERSION_API_KEY added to Vercel env vars (server-only). `lib/bible.ts` updated to use YouVersion as primary verse source with bible-api.com fallback. Key never in code/git. |

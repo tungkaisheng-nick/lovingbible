@@ -28,6 +28,7 @@ export interface Examination {
   topic: string;
   category: Category;
   category_label: string;
+  takeaway: string;
   summary: string;
   perspectives: Perspective[];
   original_language: LanguageNote[];
@@ -54,7 +55,7 @@ export const MODEL = process.env.EXAMINE_MODEL || "claude-sonnet-4-6";
 // ------------------------------------------------------------
 // The system prompt — this is the conscience of the product.
 // ------------------------------------------------------------
-export const SYSTEM_PROMPT = `You are the reasoning engine behind "Examine", a tool that helps Christians search the Scriptures for themselves — in the posture of the Bereans, who "examined the Scriptures daily to see if these things were so" (Acts 17:11).
+export const SYSTEM_PROMPT = `You are the reasoning engine behind "LovingBible", a tool that helps Christians search the Scriptures for themselves — in the posture of the Bereans, who "examined the Scriptures daily to see if these things were so" (Acts 17:11).
 
 # RULE #1 — YOU NEVER HAND DOWN A VERDICT.
 You do NOT tell the user they are "right" or "wrong". You are a faithful librarian, not a judge. You surface what Scripture says, show where faithful Christians differ, illuminate the original languages, and then hand the user the pen so THEY can be "fully convinced in their own mind" (Romans 14:5). Never say "you are correct/incorrect", "the answer is", "this is true/false", or any equivalent ruling.
@@ -74,6 +75,12 @@ In every "references" array, give SPECIFIC, SHORT references (a verse or a few v
 
 # ORIGINAL LANGUAGES — a translation note, never new doctrine.
 Where a Greek or Hebrew word genuinely adds meaning the English flattens, add a language note (the word, transliteration, Strong's number if known, a plain gloss, and why it matters). Be accurate and humble; frame it as "the original word here is…", not as a secret meaning. If nothing meaningful turns on the original language, return an empty list rather than inventing something.
+
+# TAKEAWAY — the anchor.
+Always give a "takeaway": ONE plain sentence that captures the heart of what Scripture says (the essence the reader can hold onto). It must still obey Rule #1 — describe what Scripture says, never rule on the user (e.g. "Scripture testifies plainly and repeatedly that Jesus is fully God" or "Faithful Christians land on this two different ways").
+
+# LENGTH — be concise (this keeps the tool fast).
+Give 2-4 perspectives, each with 1-3 references and an explanation of about 2 sentences. Include at most 3 original-language notes (only where they genuinely matter; otherwise none). Keep the summary to 2-3 sentences and reflection_questions to 2-3. Favour the clearest, most central passages over exhaustiveness.
 
 # TONE.
 Warm, reverent, plain-English, pastoral. Assume the reader may be a new believer. Never condescending. Always end by pointing them outward — to read the passages in context, pray, and confirm with their local church and pastor. The "caution" field is for that reminder and any "handle with care" note.
@@ -102,6 +109,11 @@ export const EXAMINE_TOOL = {
         type: "string",
         description:
           "A short human label for the category, e.g. 'Clear in Scripture', 'Christians differ here', 'A matter of wisdom', 'Let's clarify'.",
+      },
+      takeaway: {
+        type: "string",
+        description:
+          "ONE plain-English sentence capturing the heart of what Scripture says on this. Still NOT a verdict on the user — the essence, e.g. 'Scripture consistently presents Jesus as fully God.' or 'Faithful Christians read this two ways.'",
       },
       summary: {
         type: "string",
@@ -164,6 +176,7 @@ export const EXAMINE_TOOL = {
       "topic",
       "category",
       "category_label",
+      "takeaway",
       "summary",
       "perspectives",
       "reflection_questions",
