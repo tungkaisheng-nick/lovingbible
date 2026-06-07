@@ -21,10 +21,13 @@ export default function SiteFooter() {
           <LampMark />
           <span className="display text-band-ink">LovingBible</span>
         </div>
-        <nav className="flex items-center gap-6">
+        <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
           <Link href="/" className="transition hover:text-band-ink">Examine</Link>
           <Link href="/about" className="transition hover:text-band-ink">About</Link>
           <Link href="/testimonies" className="transition hover:text-band-ink">Witnesses</Link>
+          <Link href="/team" className="transition hover:text-band-ink">Team</Link>
+          <Link href="/faq" className="transition hover:text-band-ink">FAQ</Link>
+          <Link href="/privacy" className="transition hover:text-band-ink">Privacy</Link>
         </nav>
         <p className="max-w-md text-xs leading-relaxed text-band-muted/80">
           Built to equip, not to rule. LovingBible offers no verdicts and is not a substitute for
