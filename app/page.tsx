@@ -1,11 +1,13 @@
 import ExamineTool from "@/components/ExamineTool";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import VerseTicker from "@/components/VerseTicker";
 
 export default function Home() {
   return (
     <>
       <SiteHeader />
+      <VerseTicker />
       <main className="flex-1">
         {/* Dark cinematic hero */}
         <section className="glow">

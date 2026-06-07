@@ -123,3 +123,22 @@ body {
 ::selection {
   background: rgba(226, 96, 63, 0.24);
 }
+
+/* ── Verse of the Day ticker ───────────────────────────────
+   .ticker-text scrolls from right to left, one full copy's
+   width (–50%) so the duplicate seamlessly replaces it.    */
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-text {
+  display: inline-block;
+  padding-left: 3rem;           /* breathing room before first word */
+  animation: ticker 38s linear infinite;
+}
+
+/* Page bottom padding so content doesn't hide behind the fixed ticker */
+body:has(.ticker-track) main {
+  padding-bottom: 2.5rem;
+}
