@@ -23,6 +23,19 @@ const CATEGORY_STYLE: Record<Category, { dot: string; chip: string }> = {
   unclear: { dot: "bg-stone-400", chip: "border-stone-300 bg-stone-50 text-stone-600" },
 };
 
+// Plain-English explanation shown directly under the category badge in the result.
+// Users see this the moment they get their answer — no hunting for a legend.
+const CATEGORY_DESC: Record<Category, string> = {
+  clear:
+    "The weight of Scripture on this is consistent — multiple passages point the same direction and the historic Church has agreed across centuries. Read the passages below and see for yourself.",
+  contested:
+    "Faithful, Bible-believing Christians genuinely land in different places on this. This isn't confusion — it's an honest disagreement. Both views and the verses behind them are shown below so you can weigh them.",
+  wisdom:
+    "Scripture gives you principles here, not a direct rule. This belongs to your prayer, your conscience, and the people who know you — not to an app. The relevant passages are below to help you think it through.",
+  unclear:
+    "The question as asked needs a bit more clarity before any answer would be useful. LovingBible has surfaced what it can — read the perspectives below and consider bringing this to your pastor or study group.",
+};
+
 const STEPS = [
   "Searching the Scriptures",
   "Weighing what they say",
@@ -199,7 +212,11 @@ function ResultView({ data, onReset }: { data: ExamineResponse; onReset: () => v
           <span className={`h-1.5 w-1.5 rounded-full ${style.dot}`} />
           {ex.category_label}
         </span>
-        <h2 className="display mt-4 text-3xl uppercase leading-[1.05] text-ink sm:text-4xl">
+        {/* What this label actually means — shown right where the user needs it */}
+        <p className="mt-2 text-sm leading-relaxed text-muted italic">
+          {CATEGORY_DESC[ex.category] ?? CATEGORY_DESC.unclear}
+        </p>
+        <h2 className="display mt-5 text-3xl uppercase leading-[1.05] text-ink sm:text-4xl">
           {ex.topic}
         </h2>
         <p className="mt-4 text-xl font-bold leading-snug text-ink">{ex.takeaway}</p>
