@@ -1,26 +1,87 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Examine — design tokens
+   Dark "candlelight" base + one confident gold accent.
+   (Track B taste: restraint + one saturated accent on a calm base.)
+   ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ink: #0c0a09;        /* warm near-black base (never pure #000) */
+  --ink-2: #14110f;      /* raised panel */
+  --surface: #1a1613;    /* cards */
+  --line: rgba(245, 241, 232, 0.09);
+  --line-strong: rgba(245, 241, 232, 0.16);
+  --cream: #f5f1e8;      /* primary text (warm white) */
+  --muted: #a59c90;      /* secondary text */
+  --gold: #c9a84c;       /* the one accent — lamp / Scripture */
+  --gold-soft: #e3cd86;
+  --gold-deep: #8a6d2a;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-cream: var(--cream);
+  --color-muted: var(--muted);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-gold-deep: var(--gold-deep);
+
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-jakarta);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--ink);
+  color: var(--cream);
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Candlelight glow behind the hero */
+.glow {
+  background:
+    radial-gradient(60% 50% at 50% 0%, rgba(201, 168, 76, 0.16) 0%, rgba(201, 168, 76, 0) 70%),
+    radial-gradient(40% 30% at 80% 10%, rgba(201, 168, 76, 0.07) 0%, rgba(201, 168, 76, 0) 70%);
+}
+
+/* Left accent bar (from the cinematic reference) */
+.accent-bar {
+  border-left: 2px solid var(--gold);
+  padding-left: 1.25rem;
+}
+
+.display {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-optical-sizing: auto;
+  letter-spacing: -0.02em;
+  line-height: 0.98;
+}
+
+.fade-up {
+  animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Thin gold scrollbar accents on the result column */
+.scripture-quote {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+::selection {
+  background: rgba(201, 168, 76, 0.25);
+  color: var(--cream);
 }
